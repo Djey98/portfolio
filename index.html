@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eyma Garçon | Filmmaker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --dark-bg: #1a1410;
+            --darker-bg: #0f0c0a;
+            --charcoal: #2a2520;
+            --brown: #5a4a3a;
+            --warm-beige: #d4c5b0;
+            --light-beige: #e8dcc8;
+            --gold: #c9a961;
+            --accent: #a67c52;
+            --text-light: #f5f1ed;
+            --text-muted: #b8a896;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 20, 16, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--charcoal);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            padding: 20px 0;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--gold);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        #home {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--darker-bg) 0%, var(--charcoal) 100%);
+            padding: 120px 20px 60px;
+            text-align: center;
+        }
+
+        .hero-content h1 {
+            font-size: 72px;
+            font-weight: 300;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            color: var(--light-beige);
+        }
+
+        .hero-label {
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .hero-tagline {
+            font-size: 24px;
+            color: var(--text-muted);
+            margin-bottom: 50px;
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            border: 2px solid var(--gold);
+            background: transparent;
+            color: var(--gold);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background: var(--gold);
+            color: var(--dark-bg);
+        }
+
+        /* Sections */
+        section {
+            padding: 100px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        section h2 {
+            font-size: 48px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 60px;
+            text-align: center;
+            color: var(--light-beige);
+        }
+
+        /* Films Section */
+        #films {
+            background: var(--dark-bg);
+        }
+
+        .films-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .film-card {
+            background: var(--charcoal);
+            border: 1px solid var(--brown);
+            padding: 40px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .film-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(201, 169, 97, 0.1), transparent);
+            transition: left 0.6s ease;
+            z-index: 0;
+        }
+
+        .film-card:hover::before {
+            left: 100%;
+        }
+
+        .film-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-5px);
+        }
+
+        .film-card-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .film-year {
+            font-size: 12px;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .film-title {
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            color: var(--light-beige);
+        }
+
+        .film-role {
+            font-size: 13px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+        }
+
+        .film-logline {
+            font-size: 15px;
+            color: var(--warm-beige);
+            font-style: italic;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .film-description {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .placeholder-media {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--brown) 0%, var(--accent) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 13px;
+            color: var(--warm-beige);
+            text-align: center;
+        }
+
+        /* Stills Section */
+        #stills {
+            background: linear-gradient(180deg, var(--dark-bg) 0%, var(--charcoal) 100%);
+        }
+
+        .stills-intro {
+            text-align: center;
+            font-size: 18px;
+            color: var(--text-muted);
+            margin-bottom: 60px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .stills-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .still-item {
+            background: var(--charcoal);
+            border: 1px solid var(--brown);
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .still-item:hover {
+            border-color: var(--gold);
+            transform: scale(1.02);
+        }
+
+        .still-placeholder {
+            width: 100%;
+            height: 280px;
+            background: linear-gradient(135deg, var(--brown) 0%, var(--accent) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            color: var(--warm-beige);
+        }
+
+        .still-info {
+            padding: 20px;
+        }
+
+        .still-title {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--light-beige);
+        }
+
+        .still-description {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* About Section */
+        #about {
+            background: var(--dark-bg);
+        }
+
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .about-bio {
+            font-size: 18px;
+            line-height: 1.9;
+            margin-bottom: 40px;
+            color: var(--warm-beige);
+        }
+
+        .about-paragraph {
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 1.9;
+            margin-bottom: 30px;
+        }
+
+        .about-location {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 1px solid var(--brown);
+        }
+
+        /* Contact Section */
+        #contact {
+            background: linear-gradient(180deg, var(--charcoal) 0%, var(--darker-bg) 100%);
+            text-align: center;
+        }
+
+        .contact-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-text {
+            font-size: 16px;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        .contact-email {
+            font-size: 24px;
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            margin-bottom: 40px;
+            display: inline-block;
+        }
+
+        .contact-email:hover {
+            color: var(--warm-beige);
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 40px;
+        }
+
+        .form-input,
+        .form-textarea {
+            padding: 12px 16px;
+            background: var(--dark-bg);
+            border: 1px solid var(--brown);
+            color: var(--text-light);
+            font-family: inherit;
+            font-size: 14px;
+            transition: border 0.3s ease;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-submit {
+            padding: 12px 32px;
+            background: var(--gold);
+            color: var(--dark-bg);
+            border: none;
+            font-weight: 600;
+            font-size: 13px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            align-self: center;
+        }
+
+        .form-submit:hover {
+            background: var(--warm-beige);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--darker-bg);
+            padding: 30px 20px;
+            text-align: center;
+            border-top: 1px solid var(--charcoal);
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 15px;
+                padding: 15px 0;
+            }
+
+            nav a {
+                font-size: 12px;
+            }
+
+            .hero-content h1 {
+                font-size: 48px;
+            }
+
+            .hero-tagline {
+                font-size: 18px;
+            }
+
+            section h2 {
+                font-size: 36px;
+                margin-bottom: 40px;
+            }
+
+            .films-grid,
+            .stills-gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#films">Films</a></li>
+            <li><a href="#stills">Stills</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home">
+        <div class="hero-content">
+            <p class="hero-label">Filmmaker · Director · Writer</p>
+            <h1>Eyma Garçon</h1>
+            <p class="hero-tagline">Visually bold, emotionally grounded, character-first storytelling.</p>
+            <div class="hero-buttons">
+                <a href="#films" class="btn">Watch Films</a>
+                <a href="#stills" class="btn">View Stills</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Films Section -->
+    <section id="films">
+        <h2>Films</h2>
+        <div class="films-grid">
+            <!-- Film 1 -->
+            <div class="film-card">
+                <div class="placeholder-media">Image or Video Placeholder</div>
+                <div class="film-card-content">
+                    <p class="film-year">202X</p>
+                    <h3 class="film-title">Film Title – Short Film</h3>
+                    <p class="film-role">Writer · Director · Editor</p>
+                    <p class="film-logline">"A brief one–sentence description of the film goes here."</p>
+                    <p class="film-description">This is where you'll write 3–4 lines about the story, your approach, and what makes this film stand out. Add details about themes, visual style, and your collaboration with cast and crew.</p>
+                </div>
+            </div>
+
+            <!-- Film 2 -->
+            <div class="film-card">
+                <div class="placeholder-media">Image or Video Placeholder</div>
+                <div class="film-card-content">
+                    <p class="film-year">202X</p>
+                    <h3 class="film-title">Film Title – Narrative Piece</h3>
+                    <p class="film-role">Director</p>
+                    <p class="film-logline">"One sentence to hook the viewer."</p>
+                    <p class="film-description">Use this space to talk about tone, visual style, and your collaboration with cast and crew. Describe the production process and what you explored thematically and visually in this project.</p>
+                </div>
+            </div>
+
+            <!-- Film 3 -->
+            <div class="film-card">
+                <div class="placeholder-media">Image or Video Placeholder</div>
+                <div class="film-card-content">
+                    <p class="film-year">202X</p>
+                    <h3 class="film-title">Film Title – Experimental</h3>
+                    <p class="film-role">Director · Cinematographer</p>
+                    <p class="film-logline">"One sentence capturing the core idea."</p>
+                    <p class="film-description">Describe what you explored thematically and visually in this project. Talk about influences, your creative process, and the technical approach you took to bring your vision to life.</p>
+                </div>
+            </div>
+
+            <!-- Film 4 (Template for you to duplicate) -->
+            <div class="film-card">
+                <div class="placeholder-media">Image or Video Placeholder</div>
+                <div class="film-card-content">
+                    <p class="film-year">202X</p>
+                    <h3 class="film-title">Film Title</h3>
+                    <p class="film-role">Your Role(s)</p>
+                    <p class="film-logline">"Your logline here."</p>
+                    <p class="film-description">Your description here.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stills Section -->
+    <section id="stills">
+        <h2>Stills</h2>
+        <p class="stills-intro">A selection of stills and photographs that explore texture, light, and intimate character moments.</p>
+        <div class="stills-gallery">
+            <!-- Still 1 -->
+            <div class="still-item">
+                <div class="still-placeholder">Image Placeholder</div>
+                <div class="still-info">
+                    <h4 class="still-title">Series Title</h4>
+                    <p class="still-description">Brief description of this series or project.</p>
+                </div>
+            </div>
+
+            <!-- Still 2 -->
+            <div class="still-item">
+                <div class="still-placeholder">Image Placeholder</div>
+                <div class="still-info">
+                    <h4 class="still-title">Series Title</h4>
+                    <p class="still-description">Brief description of this series or project.</p>
+                </div>
+            </div>
+
+            <!-- Still 3 -->
+            <div class="still-item">
+                <div class="still-placeholder">Image Placeholder</div>
+                <div class="still-info">
+                    <h4 class="still-title">Series Title</h4>
+                    <p class="still-description">Brief description of this series or project.</p>
+                </div>
+            </div>
+
+            <!-- Still 4 -->
+            <div class="still-item">
+                <div class="still-placeholder">Image Placeholder</div>
+                <div class="still-info">
+                    <h4 class="still-title">Series Title</h4>
+                    <p class="still-description">Brief description of this series or project.</p>
+                </div>
+            </div>
+
+            <!-- Still 5 -->
+            <div class="still-item">
+                <div class="still-placeholder">Image Placeholder</div>
+                <div class="still-info">
+                    <h4 class="still-title">Series Title</h4>
+                    <p class="still-description">Brief description of this series or project.</p>
+                </div>
+            </div>
+
+            <!-- Still 6 -->
+            <div class="still-item">
+                <div class="still-placeholder">Image Placeholder</div>
+                <div class="still-info">
+                    <h4 class="still-title">Series Title</h4>
+                    <p class="still-description">Brief description of this series or project.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2>About</h2>
+        <div class="about-content">
+            <p class="about-bio">Eyma Garçon is a Haitian filmmaker based in Vancouver, working across directing, writing, cinematography, and editing. His work is visually bold, emotionally grounded, and driven by character-first storytelling.</p>
+            <p class="about-paragraph">Eyma's practice centers on intimate, character-led narratives that sit between realism and stylized visual language. His approach emphasizes authentic human experience and explores themes of identity, belonging, and transformation. Whether directing, writing, or capturing images, he prioritizes collaboration and creating spaces where cast and crew can bring their full selves to the work.</p>
+            <div class="about-location">
+                <strong>Based in:</strong> Vancouver, Canada<br>
+                <strong>Email:</strong> <a href="mailto:garconeyma@gmail.com" style="color: var(--gold); text-decoration: none;">garconeyma@gmail.com</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2>Contact</h2>
+        <div class="contact-content">
+            <p class="contact-text">For collaborations, commissions, and general inquiries:</p>
+            <a href="mailto:garconeyma@gmail.com" class="contact-email">garconeyma@gmail.com</a>
+            
+            <form class="contact-form" id="contactForm">
+                <input type="text" class="form-input" placeholder="Your Name" required>
+                <input type="email" class="form-input" placeholder="Your Email" required>
+                <textarea class="form-textarea" placeholder="Your Message" required></textarea>
+                <button type="submit" class="form-submit">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Eyma Garçon. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Contact form handling
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! I will get back to you soon.');
+            this.reset();
+        });
+    </script>
+</body>
+</html>
